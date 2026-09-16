@@ -7,24 +7,40 @@ VIM_MODE_TXT="%F{#ff5555}%B[ VIM ]%b%f"
 INS_MODE_TXT="%F{#8be9fd}%B[ INSERT ]%b%f"
 CURRENT_VIM_STATUS=$INS_MODE_TXT
 
-# Ubah bentuk kursor berdasarkan mode (Block di Vim Mode, Pipe | di Insert Mode)
-function zle-keymap-select {
+# Atur Bentuk Kursor:
+# \e[2q = Solid Block █ (Vim Mode)
+# \e[6q = Steady Beam / Line | (Insert Mode)
+function set_cursor_shape {
   if [[ $KEYMAP == vicmd ]]; then
     CURRENT_VIM_STATUS=$VIM_MODE_TXT
-    print -n "\e[2q" # Solid BlockCursor [█]
+    print -n "\e[2q"
   else
     CURRENT_VIM_STATUS=$INS_MODE_TXT
-    print -n "\e[6q" # Beam/Pipe Cursor [|]
+    print -n "\e[6q"
   fi
   zle reset-prompt
 }
+
+function zle-keymap-select {
+  set_cursor_shape
+}
 zle -N zle-keymap-select
 
-# Pastikan kursor kembali ke Pipe | saat prompt baru muncul
+# Paksa kursor selalu kembali ke bentuk Line/Beam | saat baris prompt baru muncul
 function zle-line-init {
+  KEYMAP=viins
+  CURRENT_VIM_STATUS=$INS_MODE_TXT
   print -n "\e[6q"
+  zle reset-prompt
 }
 zle -N zle-line-init
+
+# Paksa bentuk kursor saat sebelum menjalankan perintah (opsional safety reset)
+function preexec {
+  print -n "\e[6q"
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec preexec
 
 # Native Zsh History Search by Prefix
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
