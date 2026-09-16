@@ -21,7 +21,7 @@ if [ -f "\(ZSHRC_FILE" ] && ! grep -q "zshrc.d" "\)ZSHRC_FILE"; then
   echo "Backup created at ${ZSHRC_FILE}.bak"
 fi
 
-cat << 'LOADER' > "$ZSHRC_FILE"
+cat <<'LOADER' >"$ZSHRC_FILE"
 if [[ -d "$HOME/.zshrc.d" ]]; then
   for f in "$HOME/.zshrc.d/"*.zsh(N); do
     source "$f"
@@ -30,3 +30,4 @@ fi
 LOADER
 
 echo "Installation complete! Restart your terminal or run: source ~/.zshrc"
+EOF
