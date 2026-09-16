@@ -30,4 +30,3 @@ fi
 LOADER
 
 echo "Installation complete! Restart your terminal or run: source ~/.zshrc"
-EOF
