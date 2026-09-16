@@ -5,14 +5,14 @@ set -e
 TARGET_DIR="${HOME}/.zshrc.d"
 REPO_URL="https://github.com/RazerZS-oss/config-zshrc-clustering.git"
 
-echo "Installing/Updating Zsh Modular Config at ${TARGET_DIR}..."
+echo "Installing Zsh Modular Config to ${TARGET_DIR}..."
 
 if [ -d "$TARGET_DIR/.git" ]; then
-  echo "Fetching latest changes from GitHub..."
+  echo "Updating existing config at ${TARGET_DIR}..."
   git -C "$TARGET_DIR" fetch origin main
   git -C "$TARGET_DIR" reset --hard origin/main
 else
-  echo "Cloning fresh configuration repository..."
+  echo "Cloning config repository..."
   git clone "\(REPO_URL" "\)TARGET_DIR"
 fi
 
