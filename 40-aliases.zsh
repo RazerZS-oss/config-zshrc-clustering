@@ -7,6 +7,7 @@ alias edit='micro'
 alias z="open -a Zed"
 alias mpv='/opt/homebrew/bin/mpv'
 alias gsc='git status | pbcopy'
+alias zed='open -a zed'
 
 # Config Manager & Theme Switcher Shortcuts
 alias conf='source ~/.config/ghostty/config-manager.sh'
