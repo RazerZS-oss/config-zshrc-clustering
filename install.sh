@@ -3,7 +3,6 @@
 set -e
 
 TARGET_DIR="${HOME}/.zshrc.d"
-REPO_URL="https://github.com/RazerZS-oss/config-zshrc-clustering.git"
 
 echo "Installing Zsh Modular Config to ${TARGET_DIR}..."
 
@@ -13,7 +12,7 @@ if [ -d "$TARGET_DIR/.git" ]; then
   git -C "$TARGET_DIR" reset --hard origin/main
 else
   echo "Cloning config repository..."
-  git clone "\(REPO_URL" "\)TARGET_DIR"
+  git clone https://github.com/RazerZS-oss/config-zshrc-clustering.git "$TARGET_DIR"
 fi
 
 ZSHRC_FILE="${HOME}/.zshrc"
