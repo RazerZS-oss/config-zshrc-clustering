@@ -1,23 +1,30 @@
 #!/usr/bin/env bash
 
-echo "Installing Zsh Modular Config..."
+set -e
+
+TARGET_DIR="${HOME}/.zshrc.d"
+REPO_URL="https://github.com/RazerZS-oss/config-zshrc-clustering.git"
+
+echo "Installing Zsh Modular Config to ${TARGET_DIR}..."
 
 # Clone or update config
-if [ -d "$HOME/.zshrc.d" ]; then
-  echo "Updating existing ~/.zshrc.d..."
-  git -C "$HOME/.zshrc.d" pull
+if [ -d "$TARGET_DIR" ]; then
+  echo "Updating existing config at ${TARGET_DIR}..."
+  git -C "$TARGET_DIR" pull
 else
-  git clone https://github.com/RazerZS-oss/config-zshrc-clustering.git "$HOME/.zshrc.d"
+  echo "Cloning config repository..."
+  git clone "\(REPO_URL" "\)TARGET_DIR"
 fi
 
 # Backup existing .zshrc if present and not a loader
-if [ -f "\(HOME/.zshrc" ] && ! grep -q "zshrc.d" "\)HOME/.zshrc"; then
-  cp "\(HOME/.zshrc" "\)HOME/.zshrc.bak.$(date +%s)"
-  echo "Backup created at ~/.zshrc.bak"
+ZSHRC_FILE="${HOME}/.zshrc"
+if [ -f "\(ZSHRC_FILE" ] && ! grep -q "zshrc.d" "\)ZSHRC_FILE"; then
+  cp "\(ZSHRC_FILE" "\){ZSHRC_FILE}.bak.$(date +%s)"
+  echo "Backup created at ${ZSHRC_FILE}.bak"
 fi
 
 # Write minimal loader to ~/.zshrc
-cat << 'LOADER' > "$HOME/.zshrc"
+cat << 'LOADER' > "$ZSHRC_FILE"
 if [[ -d "$HOME/.zshrc.d" ]]; then
   for f in "$HOME/.zshrc.d/"*.zsh(N); do
     source "$f"
